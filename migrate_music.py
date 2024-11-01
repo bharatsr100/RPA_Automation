@@ -7,6 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 
 # User Data path --> C:\Users\bhara\AppData\Local\Google\Chrome\User Data
 
@@ -35,8 +36,8 @@ def search_song(song_name):
     # Search for the song
     search_box = driver.find_element(By.XPATH, '//input[@placeholder="Search songs, albums, artists, podcasts"]')
     search_box.clear()
-    outer_html = search_box.get_attribute('outerHTML')
-    print(outer_html)
+    #outer_html = search_box.get_attribute('outerHTML')
+    #print(outer_html)
     search_box.send_keys(song_name)
     search_box.send_keys(Keys.RETURN)
     time.sleep(5)
@@ -44,20 +45,27 @@ def search_song(song_name):
 
 # Function to add the top result to the playlist
 def add_song(count):
+     
+    try:
 
-    save_button=driver.find_element(By.XPATH,'//div[@class="card-content-container style-scope ytmusic-card-shelf-renderer"]//button[@aria-label="Save to playlist"]')
-    save_button.click() #clicks on save to playlist button
-    
+        save_button=driver.find_element(By.XPATH,'//div[@class="card-content-container style-scope ytmusic-card-shelf-renderer"]//button[@aria-label="Save to playlist"]')
+        save_button.click() #clicks on save to playlist button
+        
 
-    if count == 1:
-        time.sleep(5)
-        add_song=driver.find_element(By.XPATH,'//div[@id="playlists"]//button[@aria-label="Spotify Liked "]')
-        add_song.click() #clicks on the playlist to add songs to playlist
+        if count == 1:
+            time.sleep(5)
+            add_song=driver.find_element(By.XPATH,'//div[@id="playlists"]//button[@aria-label="Spotify Liked "]')
+            add_song.click() #clicks on the playlist to add songs to playlist
 
-    
+    except NoSuchElementException:
+        # Log to skipped_songs.txt if "Save to playlist" button is not found
+        with open("skipped_songs.txt", "a") as skipped_file:
+            skipped_file.write(f"{song}\n")
+        print(f"{song} skipped - save button not found")
+
     #add_to_liked.click()  # Click on the option
 
-file_path = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\Liked_Filtered_v1.txt"
+file_path = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\Liked_Filtered.txt"
 with open(file_path, "r") as file:
     count=0
     for song in file:
