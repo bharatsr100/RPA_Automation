@@ -8,7 +8,7 @@
    pip install selenium --user
    pip install webdriver-manager --user
 
-## Test Environment Setup
+## Git Setup
 
 1. Create git repository on github
 2. Run the following commands in git cli for initial commit and pushing changes to remote repo:
