@@ -1,4 +1,3 @@
-
 {
     "data": {
         "playlistV2": {
@@ -63,14 +62,14 @@
             "format": "",
             "attributes": [],
             "sharingInfo": {
-                "shareUrl": "https://open.spotify.com/playlist/4ilQlOOFgu9cxftqjDwxUq?si=rwGK1o_5TReJNyrbZ2wFag"
+                "shareUrl": "https://open.spotify.com/playlist/4ilQlOOFgu9cxftqjDwxUq?si=hYam4G95RZe037oRl-ZGnA"
             },
             "content": {
                 "__typename": "PlaylistItemsPage",
                 "totalCount": 81,
                 "pagingInfo": {
                     "offset": 0,
-                    "limit": 25
+                    "limit": 200
                 },
                 "items": [
                     {
@@ -2583,25 +2582,7 @@
                                 }
                             }
                         }
-                    }
-                ]
-            }
-        }
-    },
-    "extensions": {}
-}
-{
-    "data": {
-        "playlistV2": {
-            "__typename": "Playlist",
-            "content": {
-                "__typename": "PlaylistItemsPage",
-                "totalCount": 81,
-                "pagingInfo": {
-                    "offset": 25,
-                    "limit": 100
-                },
-                "items": [
+                    },
                     {
                         "uid": "b27be02acbed48c4",
                         "addedAt": {
