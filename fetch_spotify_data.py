@@ -1,5 +1,6 @@
 import time
 import requests
+import json
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -81,6 +82,7 @@ fetch_playlist_id_url="https://api-partner.spotify.com/pathfinder/v1/query?opera
 headers = {
     "authorization": authorization_token,
     "client-token": client_token,
+    "content-type": "application/json;charset=UTF-8"
 }
 
 
@@ -93,9 +95,37 @@ try:
         # Parse and store the response body
         response_body = response.json()
         print("API call successful. Response body stored.")
-        print(response_body)
+        # print(response_body)
     else:
         print(f"API call failed with status code {response.status_code}: {response.text}")
 
 except Exception as e:
     print(f"An error occurred: {e}")
+
+# print("response_body ------------------->>> ",response_body)
+# response_dict = json.loads(response_body)
+response_dict=response_body
+
+# Initialize an empty list to store the results
+playlist_data = []
+
+
+# Navigate through the JSON structure
+for item in response_dict["data"]["me"]["libraryV3"]["items"]:
+    data = item["item"]["data"]
+    
+    # Check if the typename is "Playlist"
+    if data.get("__typename") == "Playlist":
+        # Extract name and uri
+        playlist_name = data.get("name")
+        playlist_uri = data.get("uri")
+        
+        # Store the data in a dictionary
+        if(playlist_name and playlist_uri):
+            playlist_data.append({"name": playlist_name, "uri": playlist_uri})
+
+# Output the result
+print("Extracted Playlists:")
+print("no of playlists is ",len(playlist_data))
+for playlist in playlist_data:
+    print(f"Name: {playlist['name']}, URI: {playlist['uri']}")
