@@ -4,7 +4,7 @@
             "__typename": "Playlist",
             "revisionId": "AAAANLsRiQnGAiSxh22NErEXIKEIZ62Y",
             "uri": "spotify:playlist:2Qm6cZfc17tHERNK3wbaHO",
-            "name": "You're in love ❤️",
+            "name": "You're in love",
             "description": "Bollywood Love Songs by @_humourastic_",
             "ownerV2": {
                 "data": {

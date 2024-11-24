@@ -132,7 +132,7 @@ def add_song(count,playlist):
 
     #add_to_liked.click()  # Click on the option
 
-file_path = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\Extracted_Shri Krishna.txt"
+file_path = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\extracted\Extracted_Hindi Fvr.txt"
 with open(file_path, "r") as file:
     count=0
     for song in file:
@@ -145,7 +145,7 @@ with open(file_path, "r") as file:
 
         # Call the function to search for the song
         search_song(song)
-        playlist="Shree Krishna"
+        playlist="Hindi Fvr"
         # Add the top result to playlist
         add_song(count,playlist)
         time.sleep(2)
