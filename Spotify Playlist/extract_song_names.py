@@ -1,8 +1,8 @@
 import json
 
 # File paths
-input_file = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\pending\Shri Krishna.txt"
-output_file = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\extracted\Extracted_Shri Krishna.txt"
+input_file = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\pending\Soothing______.txt"
+output_file = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\extracted\Extracted_Soothing______.txt"
 
 try:
     # Read the JSON from the file

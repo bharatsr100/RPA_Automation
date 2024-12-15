@@ -1,6 +1,8 @@
 import time
+import os
 import requests
 import json
+import re
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -65,8 +67,8 @@ try:
 
     # Print the extracted tokens
     if authorization_token and client_token:
-        # print(f"Authorization Token: {authorization_token}")
-        # print(f"Client Token: {client_token}")
+        print(f"Authorization Token: {authorization_token}")
+        print(f"Client Token: {client_token}")
         print("authorization_token and client_token fetched successfully")
     else:
         print("Could not find the tokens. Make sure the page has fully loaded.")
@@ -129,3 +131,46 @@ print("Extracted Playlists:")
 print("no of playlists is ",len(playlist_data))
 for playlist in playlist_data:
     print(f"Name: {playlist['name']}, URI: {playlist['uri']}")
+
+
+fetch_tracks_url="https://api-partner.spotify.com/pathfinder/v1/query?operationName=fetchPlaylist&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2273a3b3470804983e4d55d83cd6cc99715019228fd999d51429cc69473a18789d%22%7D%7D"
+
+outpout_directory=os.path.join(os.getcwd(),"Spotify Playlist","pending")
+os.makedirs(outpout_directory,exist_ok=True)
+
+# Function to sanitize playlist name
+def sanitize_filename(playlist_name):
+    # Replace invalid characters with an underscore
+    return re.sub(r'[^a-zA-Z0-9]', '_', playlist_name)
+
+for playlist in playlist_data:
+    playlist_name = playlist["name"]
+    playlist_uri = playlist["uri"]
+    safe_playlist_name = sanitize_filename(playlist_name)
+    try:
+        variables={
+            "uri":playlist_uri,
+            "offset":0,
+            "limit":200
+        }
+        encoded_variables=json.dumps(variables)
+
+        response=requests.get(
+           fetch_tracks_url,
+           headers=headers,
+           params={"variables":encoded_variables} 
+        )
+
+        if response.status_code == 200:
+
+            output_file = os.path.join(outpout_directory,f"{safe_playlist_name}.txt")
+            with open(output_file,"w",encoding="utf-8") as file:
+                file.write(response.text)
+            print(f"Tracks for playlist '{playlist_name}' saved to {output_file}")
+
+        else:
+            print(f"Failed to fetch tracks for playlist '{playlist_name}'. Status: {response.status_code}")
+
+
+    except Exception as e:
+            print(f"Error processing playlist '{playlist_name}':{e}")

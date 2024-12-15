@@ -2,20 +2,19 @@ Hustler
 Enemy (with JID) - from the series Arcane League of Legends
 Revolution
 Centuries - Remix
-JAY SHREE RAM
 Take Me To Church
-Bones
 NO LOVE
-Human
-Unstoppable
 Bulletproof (with XYLØ)
 The Fear
 Cold-Blooded
+Bones
 Kings & Queens
 Hall of Fame (feat. will.i.am)
 Flames (with ZAYN)
+Human
 Trampoline (with ZAYN)
 You (feat. Travis Barker)
+Unstoppable
 Lose Yourself - From "8 Mile" Soundtrack
 Not Afraid
 Play With Fire
@@ -26,6 +25,7 @@ Brown Munde
 Parwah Nahin
 Illegal Weapon
 Char Baj Gaye - Party Abhi Baaki Hai
+JAY SHREE RAM
 Aasman Ko Chukar
 Aarambh
 Bolo Har Har Har (feat. Mohit Chauhan, Sukhwinder Singh, Badshah, Megha Sriram Dalton, Anugrah, Sandeep Shrivastava)
@@ -82,7 +82,7 @@ vendetta!
 Money Rain - Phonk Remix
 Simon Says
 Wannabe
-Se Acabo (feat. Method Man) - Remix
+Se Acabo (feat. Method Man)
 Unholy (feat. Kim Petras)
 Write This Down
 Gangsta's Paradise
