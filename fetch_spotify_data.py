@@ -135,7 +135,7 @@ for playlist in playlist_data:
 
 fetch_tracks_url="https://api-partner.spotify.com/pathfinder/v1/query?operationName=fetchPlaylist&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2273a3b3470804983e4d55d83cd6cc99715019228fd999d51429cc69473a18789d%22%7D%7D"
 
-outpout_directory=os.path.join(os.getcwd(),"Spotify Playlist","pending")
+outpout_directory=os.path.join(os.getcwd(),"Spotify Playlist","pending_to_be_processed")
 os.makedirs(outpout_directory,exist_ok=True)
 
 # Function to sanitize playlist name

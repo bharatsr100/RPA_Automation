@@ -6,13 +6,9 @@ import shutil
 current_directory = os.getcwd()
 
 # Define the paths dynamically based on the current directory
-pending_dir = os.path.join(current_directory, "Spotify Playlist", "pending")
-extracted_dir = os.path.join(current_directory, "Spotify Playlist", "extracted")
-completed_dir = os.path.join(current_directory, "Spotify Playlist", "completed")
-
-# pending_dir = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\pending"
-# extracted_dir = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\extracted"
-# completed_dir = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\completed"
+pending_dir = os.path.join(current_directory, "Spotify Playlist", "pending_to_be_processed")
+extracted_dir = os.path.join(current_directory, "Spotify Playlist", "extracted_data")
+completed_dir = os.path.join(current_directory, "Spotify Playlist", "processed_playlists")
 
 # Get all text files in the 'pending' directory
 pending_files = [f for f in os.listdir(pending_dir) if f.endswith(".txt")]
@@ -23,9 +19,9 @@ for file_name in pending_files:
    
     try:
         # Read the JSON from the file
-        with open(input_file, "r") as file:
+        with open(input_file, "r", encoding="utf-8") as file:
             json_data = json.load(file)
-
+       
         # Extract the "name" fields
         names = []
         items = json_data["data"]["playlistV2"]["content"]["items"]
@@ -44,7 +40,7 @@ for file_name in pending_files:
         # Move the processed file to 'completed'
         completed_file = os.path.join(completed_dir, file_name)
         shutil.move(input_file, completed_file)
-        print(f"File {file_name} moved to completed directory.")
+        print(f"File {file_name} moved to processed_playlists directory.")
 
     except FileNotFoundError:
         print(f"Error: Input file {input_file} not found.")
