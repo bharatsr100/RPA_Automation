@@ -110,6 +110,7 @@ response_dict=response_body
 
 # Initialize an empty list to store the results
 playlist_data = []
+playlist_names= []
 
 
 # Navigate through the JSON structure
@@ -125,8 +126,16 @@ for item in response_dict["data"]["me"]["libraryV3"]["items"]:
         # Store the data in a dictionary
         if(playlist_name and playlist_uri):
             playlist_data.append({"name": playlist_name, "uri": playlist_uri})
+            playlist_names.append(playlist_name)
 
-# Output the result
+# Output the result and save the list of playlist in a txt file
+
+
+playlist_file=os.path.join(os.getcwd(),"playlist_names.txt")
+with open(playlist_file, "w",encoding="utf-8") as file:
+    file.write("\n".join(playlist_names))
+print(f"Playlist Names saved to {playlist_file}")
+
 print("Extracted Playlists:")
 print("no of playlists is ",len(playlist_data))
 for playlist in playlist_data:
@@ -135,7 +144,8 @@ for playlist in playlist_data:
 
 fetch_tracks_url="https://api-partner.spotify.com/pathfinder/v1/query?operationName=fetchPlaylist&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2273a3b3470804983e4d55d83cd6cc99715019228fd999d51429cc69473a18789d%22%7D%7D"
 
-outpout_directory=os.path.join(os.getcwd(),"Spotify Playlist","pending_to_be_processed")
+outpout_directory=os.path.join(os.getcwd(),"Spotify Playlist","raw_data")
+data_directory=os.path.join(os.getcwd(),"extraced_data")
 os.makedirs(outpout_directory,exist_ok=True)
 
 # Function to sanitize playlist name
@@ -164,9 +174,28 @@ for playlist in playlist_data:
         if response.status_code == 200:
 
             output_file = os.path.join(outpout_directory,f"{safe_playlist_name}.txt")
-            with open(output_file,"w",encoding="utf-8") as file:
-                file.write(response.text)
-            print(f"Tracks for playlist '{playlist_name}' saved to {output_file}")
+            output_data = os.path.join(data_directory,f"{safe_playlist_name}.txt")
+            
+
+            names=[]
+            names.append(playlist_name)
+            json_data = response.json()
+            items=json_data["data"]["playlistV2"]["content"]["items"]
+
+
+            for item in items:
+                name = item["itemV2"]["data"].get("name")
+                if name:
+                    names.append(name)
+            
+        # Write the names to the output file
+            with open(output_data, "w",encoding="utf-8") as file:
+                file.write("\n".join(names))
+            print(f"Extraced Tracks for playlist '{playlist_name}' saved to {output_data}")
+
+            # with open(output_file,"w",encoding="utf-8") as file:
+            #     file.write(response.text)
+            # print(f"Tracks for playlist '{playlist_name}' saved to {output_file}")
 
         else:
             print(f"Failed to fetch tracks for playlist '{playlist_name}'. Status: {response.status_code}")
