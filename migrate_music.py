@@ -1,4 +1,5 @@
 import time
+import sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -14,7 +15,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 chrome_options = Options()
 chrome_options.add_argument("--user-data-dir=C:/Users/bhara/AppData/Local/Google/Chrome/User Data")
 chrome_options.add_argument("--profile-directory=Default")
-
 
 
 # Set up Chrome WebDriver
@@ -132,10 +132,17 @@ def add_song(count,playlist):
 
     #add_to_liked.click()  # Click on the option
 
-file_path = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\extracted\Extracted_Hindi Fvr.txt"
+#file_path = r"C:\Users\bhara\Desktop\Self Projects\RPA_Automation\Spotify Playlist\extracted\Extracted_Hindi Fvr.txt"
+
+# Get file_path and playlist_name from command-line arguments
+file_path = sys.argv[1]
+playlist_name = sys.argv[2]
+print(f"----------------Migrating the Playlist: {playlist_name}---------------")
 with open(file_path, "r") as file:
-    count=0
-    for song in file:
+    count = 0
+    for i, song in enumerate(file):
+        if i == 0:
+            continue  # Skip the first line
         count += 1
         song = song.strip()  # Remove any extra whitespace from the song name
         
@@ -145,11 +152,11 @@ with open(file_path, "r") as file:
 
         # Call the function to search for the song
         search_song(song)
-        playlist="Hindi Fvr"
+        playlist = playlist_name
         # Add the top result to playlist
-        add_song(count,playlist)
+        add_song(count, playlist)
         time.sleep(2)
 
-
-# Quit the driver after completion (optional, can keep it open for further actions)
-# driver.quit()
+print(f"----------------Migration finished for the Playlist: {playlist_name}---------------")
+# Quit the driver after completion
+driver.quit()
