@@ -20,9 +20,11 @@
     git branch -M main
     git push -u origin main
 
+
 ## Script Instructions
 
-1. Make sure chrome is not opened with user data being used in script and no tabs are pinned in browser. Just close the chrome browser.
-2. Run the script.
+1. Make sure you are logged into Spotify and Youtube Music in Chrome Brwoser. 
+2. Upin if there are pinned tabs and Close the Chrome Web Broser.
+3. Run the script.
     ```bash
-    python migrate_music.py
+    python fetch_data_and_migrate.py

@@ -20,7 +20,7 @@ chrome_options = Options()
 chrome_options.add_argument("--user-data-dir=C:/Users/bhara/AppData/Local/Google/Chrome/User Data")
 chrome_options.add_argument("--profile-directory=Default")
 
-# boolean for data_fetch and playlist_migration
+# boolean for spotify data_fetch and playlist_migration to youtube music
 fetch_data= True
 migrate_playlist = True
 
