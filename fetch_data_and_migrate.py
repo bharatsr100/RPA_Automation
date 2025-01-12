@@ -1,3 +1,8 @@
+"""
+This script fetches playlists from Spotify and migrates them to YouTube Music.
+It uses Selenium to interact with the web pages and fetches data using Spotify's API.
+"""
+
 import time
 import os
 import requests
@@ -20,8 +25,12 @@ chrome_options = Options()
 chrome_options.add_argument("--user-data-dir=C:/Users/bhara/AppData/Local/Google/Chrome/User Data")
 chrome_options.add_argument("--profile-directory=Default")
 
-# boolean for spotify data_fetch and playlist_migration to youtube music
-fetch_data= True
+# booleans for Spotify Data Fetch and Migration to youtube music
+### If you want to fetch data from Spotify and also migrate it to Youtube Music, set both fetch_data and migrate_playlist to True
+### If you only want to fetch data from Spotify and not migrate it to Youtube Music, set fetch_data to True and migrate_playlist to False
+### If you only want migrate the extracted data to Youtube Music, set fetch_data to False and migrate_playlist to True
+
+fetch_data= False
 migrate_playlist = True
 
 
@@ -100,16 +109,15 @@ if fetch_data:
         if response.status_code == 200:
             # Parse and store the response body
             response_body = response.json()
-            print("API call successful. Response body stored.")
             # print(response_body)
+            print("API call successful. Response body stored.")
         else:
             print(f"API call failed with status code {response.status_code}: {response.text}")
 
     except Exception as e:
         print(f"An error occurred: {e}")
 
-    # print("response_body ------------------->>> ",response_body)
-    # response_dict = json.loads(response_body)
+   
     response_dict=response_body
 
     # Initialize an empty list to store the results
@@ -134,14 +142,14 @@ if fetch_data:
 
     # Output the result and save the list of playlist in a txt file
 
-
+    #Storing the playlist names in a seperate file in case I want to handle playlists creation in Youtube Music
     playlist_file=os.path.join(os.getcwd(),"playlist_names.txt")
     with open(playlist_file, "w",encoding="utf-8") as file:
         file.write("\n".join(playlist_names))
     print(f"Playlist Names saved to {playlist_file}")
 
     print("Extracted Playlists:")
-    print("no of playlists is ",len(playlist_data))
+    print("Number of playlists is ",len(playlist_data))
     for playlist in playlist_data:
         print(f"Name: {playlist['name']}, URI: {playlist['uri']}")
 
@@ -198,10 +206,6 @@ if fetch_data:
                     file.write("\n".join(names))
                 print(f"Extracted Tracks for playlist '{playlist_name}' saved to {output_data}")
 
-                # with open(output_file,"w",encoding="utf-8") as file:
-                #     file.write(response.text)
-                # print(f"Tracks for playlist '{playlist_name}' saved to {output_file}")
-
             else:
                 print(f"Failed to fetch tracks for playlist '{playlist_name}'. Status: {response.status_code}")
 
@@ -210,7 +214,7 @@ if fetch_data:
                 print(f"Error processing playlist '{playlist_name}':{e}")
 
 
-#function to migrate extracted spotify data to youtube music
+# Migrate extracted spotify data to youtube music by processing the extracted data
 
 if migrate_playlist:
     print("Sleeping for 5 seconds before migrating music...")
@@ -220,6 +224,7 @@ if migrate_playlist:
         if txt_file.endswith(".txt"):
             file_path = os.path.join(extracted_data_folder, txt_file)
             with open(file_path, "r", encoding="utf-8") as file:
+                # We are storing the playlist name in the first line of the file
                 playlist_name = file.readline().strip()
                 # Call migrate_music script with file_path and playlist_name
                 os.system(f'python migrate_music.py "{file_path}" "{playlist_name}"')

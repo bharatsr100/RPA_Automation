@@ -15,12 +15,13 @@ This project automates the process of migrating playlists from Spotify to YouTub
 
 ## Script Instructions
 
-1. Make sure you are logged into Spotify and YouTube Music in Chrome Browser.
-2. Unpin any pinned tabs and close the Chrome Web Browser.
-3. Run the script:
-   ```bash
-   python fetch_data_and_migrate.py
-   ```
+1. Make sure you are logged into Spotify and YouTube Music in the Chrome browser.
+2. Ensure that the playlists you want to migrate already exist in YouTube Music with the exact same names, even if they are empty. This is because Playlist creation is not handled in this project. Just the data fetching from Spotify and data migration to Youtube Music is handled. It assumes that playlist already exists in Youtube Music with exact same name.
+3. Unpin any pinned tabs and close the Chrome web browser.
+4. Run the script:
+    ```bash
+    python fetch_data_and_migrate.py
+    ```
 
 ## Script Information
 

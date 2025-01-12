@@ -1,3 +1,8 @@
+"""
+This script migrates individual playlists from Spotify to YouTube Music.
+It uses Selenium to interact with the YouTube Music web page.
+"""
+
 import time
 import sys
 from selenium import webdriver
