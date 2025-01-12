@@ -1,30 +1,47 @@
-# RPA_Automation
+# Spotify-to-Youtube-Music-Migration
 
-## Test Environment Setup
+This project automates the process of migrating playlists from Spotify to YouTube Music using Selenium and Python.
 
-1. Install Python
-2. Run the following commands to install Selenium and WebDriver Manager:
+## Prerequisites and Installation
+
+1. Python 3.x should be installed on your system.
+2. Google Chrome browser should be installed.
+3. Selenium and ChromeDriver should be installed. Run the below commands to install them.
    ```bash
    pip install selenium --user
    pip install webdriver-manager --user
-
-## Git Setup
-
-1. Create git repository on github
-2. Run the following commands in git cli for initial commit and pushing changes to remote repo:
-    ```bash
-    git init
-    git add .
-    git commit -m "Initial Commit. Youtube music page is loading"
-    git remote add origin git@github.com:bharatsr100/RPA_Automation.git
-    git branch -M main
-    git push -u origin main
+   ```
 
 
 ## Script Instructions
 
-1. Make sure you are logged into Spotify and Youtube Music in Chrome Brwoser. 
-2. Upin if there are pinned tabs and Close the Chrome Web Broser.
-3. Run the script.
-    ```bash
-    python fetch_data_and_migrate.py
+1. Make sure you are logged into Spotify and YouTube Music in Chrome Browser.
+2. Unpin any pinned tabs and close the Chrome Web Browser.
+3. Run the script:
+   ```bash
+   python fetch_data_and_migrate.py
+   ```
+
+## Script Information
+
+1. **fetch_data_and_migrate.py**: This script fetches data from Spotify and migrates it to YouTube Music. It calls `migrate_music.py` internally to migrate the data.
+2. **migrate_music.py**: This script is called by `fetch_data_and_migrate.py` to handle the migration of individual playlists. There is no need to execute it separately.
+
+## Usage Examples
+
+To fetch data from Spotify and migrate it to YouTube Music, run:
+```bash
+python fetch_data_and_migrate.py
+```
+
+## Troubleshooting
+
+1. **Issue**: The script cannot find the Chrome browser.
+   **Solution**: Ensure that Chrome is installed and the path to ChromeDriver is correctly set up.
+
+2. **Issue**: The script fails to log in to Spotify or YouTube Music.
+   **Solution**: Make sure you are logged into both services in Chrome before running the script.
+
+3. **Issue**: The script cannot find certain elements on the page.
+   **Solution**: Ensure that the page has fully loaded before the script attempts to interact with it. You may need to increase the sleep time in the script.
+4. Additionally logs are being printed in console to keep track of progress and debug if there is any issue.
