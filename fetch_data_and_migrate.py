@@ -30,7 +30,7 @@ chrome_options.add_argument("--profile-directory=Default")
 ### If you only want to fetch data from Spotify and not migrate it to Youtube Music, set fetch_data to True and migrate_playlist to False
 ### If you only want migrate the extracted data to Youtube Music, set fetch_data to False and migrate_playlist to True
 
-fetch_data= False
+fetch_data= True
 migrate_playlist = True
 
 
