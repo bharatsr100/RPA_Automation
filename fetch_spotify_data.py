@@ -3,6 +3,7 @@ import os
 import requests
 import json
 import re
+import csv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -147,6 +148,7 @@ fetch_tracks_url="https://api-partner.spotify.com/pathfinder/v1/query?operationN
 outpout_directory=os.path.join(os.getcwd(),"Spotify Playlist","raw_data")
 data_directory=os.path.join(os.getcwd(),"extraced_data")
 os.makedirs(outpout_directory,exist_ok=True)
+os.makedirs(data_directory,exist_ok=True)
 
 # Function to sanitize playlist name
 def sanitize_filename(playlist_name):

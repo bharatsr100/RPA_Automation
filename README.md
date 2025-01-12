@@ -22,7 +22,7 @@
 
 ## Script Instructions
 
-1. Make sure chrome is not opened with user date being used in script. Just close the chrome browser.
+1. Make sure chrome is not opened with user data being used in script and no tabs are pinned in browser. Just close the chrome browser.
 2. Run the script.
     ```bash
     python migrate_music.py
